@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\subcategories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\File;
 use Auth;
 use DateTime;
 
-class CategoryController extends Controller
+class SubcategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +19,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('category', compact('categories'));
+        //
     }
 
     /**
@@ -36,19 +35,20 @@ class CategoryController extends Controller
     protected function storeValidator($data)
     {
         $data->validate([
-            'category_name' => 'required|string'             
+            'subcategory_name' => 'required|string'             
         ]);
         return NULL;
     }
 
     protected function storeAction($data)
     {
-        $cover = $data->file('category_img');
+        $cover = $data->file('subcategory_img');
         $extension = $cover->getClientOriginalExtension();
         Storage::disk('public')->put($cover->getFilename().'.'.$extension, File::get($cover));
-        Category::insert([
-            'name'=>$data->category_name,
-            'image' => $data->category_img,
+        subcategories::insert([
+            'category_id'=> $data->category,
+            'subcategory_name'=>$data->subcategory_name,
+            'image' => $data->subcategory_img,
             'created_at'=>now(),
             'updated_at'=>now(),
         ]);
@@ -75,10 +75,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\subcategories  $subcategories
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(subcategories $subcategories)
     {
         //
     }
@@ -86,10 +86,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\subcategories  $subcategories
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(subcategories $subcategories)
     {
         //
     }
@@ -98,10 +98,10 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
+     * @param  \App\subcategories  $subcategories
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, subcategories $subcategories)
     {
         //
     }
@@ -109,10 +109,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
+     * @param  \App\subcategories  $subcategories
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(subcategories $subcategories)
     {
         //
     }

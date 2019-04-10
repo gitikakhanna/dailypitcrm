@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Services;
 use App\Category;
+use App\subcategories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -10,7 +12,7 @@ use Illuminate\Support\Facades\File;
 use Auth;
 use DateTime;
 
-class CategoryController extends Controller
+class ServicesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +22,8 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('category', compact('categories'));
+        $subcategories = subcategories::all();
+        return view('services', compact('categories', 'subcategories'));
     }
 
     /**
@@ -36,19 +39,22 @@ class CategoryController extends Controller
     protected function storeValidator($data)
     {
         $data->validate([
-            'category_name' => 'required|string'             
+            'category' => 'required|string'             
         ]);
         return NULL;
     }
 
     protected function storeAction($data)
     {
-        $cover = $data->file('category_img');
-        $extension = $cover->getClientOriginalExtension();
-        Storage::disk('public')->put($cover->getFilename().'.'.$extension, File::get($cover));
-        Category::insert([
-            'name'=>$data->category_name,
-            'image' => $data->category_img,
+        Services::insert([
+            'category_id'=> $data->category,
+            'subcategory_id'=>$data->subcategory,
+            'reg_price' => $data->reg_price,
+            'amc_price' => $data->amc_price,
+            'discount' => $data->discount,
+            'description' => $data->description,
+            'reg_service_detail' => $data->reg_detail,
+            'amc_service_detail' => $data->amc_detail,
             'created_at'=>now(),
             'updated_at'=>now(),
         ]);
@@ -75,10 +81,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Services  $services
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Services $services)
     {
         //
     }
@@ -86,10 +92,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Services  $services
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Services $services)
     {
         //
     }
@@ -98,10 +104,10 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
+     * @param  \App\Services  $services
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Services $services)
     {
         //
     }
@@ -109,10 +115,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Services  $services
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Services $services)
     {
         //
     }

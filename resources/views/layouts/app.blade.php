@@ -81,7 +81,10 @@
                                 <span>General</span>
                             </li>
                             <li class="sidebar-dropdown">
-                                <a href="/aboutus">About Us</a>   
+                                <a href="/category">Category</a>   
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="/services">Services</a>   
                             </li>
                             <li class="header-menu"> 
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
