@@ -86,6 +86,12 @@
                             <li class="sidebar-dropdown">
                                 <a href="/services">Services</a>   
                             </li>
+                            <li class="sidebar-dropdown">
+                                <a href="/freelancer">Freelancer</a>   
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="/partnerrequest">Partner Request</a>   
+                            </li>
                             <li class="header-menu"> 
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         Logout

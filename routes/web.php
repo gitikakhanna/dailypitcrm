@@ -26,3 +26,9 @@ Route::post('/subcategory/add', 'SubcategoriesController@store');
 
 Route::get('/services', 'ServicesController@index');
 Route::post('/services/add', 'ServicesController@store');
+
+Route::get('/partnerrequest', 'PartnerController@index');
+
+Route::get('/freelancer/{id}', 'FreelancerController@index');
+Route::get('/freelancer', 'FreelancerController@create');
+Route::post('/freelancer/add', 'FreelancerController@store');
